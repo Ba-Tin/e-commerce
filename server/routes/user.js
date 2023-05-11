@@ -7,6 +7,10 @@ router.post('/login', ctrls.login)
 router.get('/getUserById', verifyAccessToken, ctrls.getUserById)
 router.post('/refreshToken', ctrls.refreshAccessToken)
 router.get('/logout', ctrls.logOut)
+router.get('/forgotpassword', ctrls.forgotPassword)
+router.put('/resetpassword', ctrls.resetPassword)
+
+
 
 
 
@@ -14,3 +18,7 @@ router.get('/logout', ctrls.logOut)
 
 module.exports = router
 
+
+
+//CREATE (POST) + PUT gửi theo body
+//GET + DELETE -query
