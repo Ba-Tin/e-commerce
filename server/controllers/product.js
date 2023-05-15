@@ -23,11 +23,48 @@ const getProduct = asyncHandler(async (req, res) => {
 })
 //Filtering, sorting && pagination
 const getAllProduct = asyncHandler(async (req, res) => {
-    const products = await Product.find()
-    return res.status(200).json({
-        success: products ? true : false,
-        productsData: products ? products : "Cannot get product"
-    })
+    const queries = { ...req.query }
+    //Tách các trường đặc biệt ra khỏi query
+    const excludeFields = ['limit', 'sort', 'page', 'fields']
+    excludeFields.forEach(item => delete queries[item])
+
+    let queryString = JSON.stringify(queries)
+    queryString = queryString.replace(/\b(gte|gt|lt|lte)\b/g, macthedItem => `$${macthedItem}`)
+    const formatedQuires = JSON.parse(queryString)
+    //Filtering
+    if (queries?.title) formatedQuires.title = { $regex: queries.title, $options: 'i' }
+    let queryCommand = Product.find(formatedQuires)
+    //sorting
+    if (req.query.sort) {
+        const sortBy = req.query.sort.split(',').join(" ")
+        queryCommand = queryCommand.sort(sortBy)
+
+    }
+
+    //Fiels limiting
+    if (req.query.fields) {
+        console.log(req.query.fields);
+        const fields = req.query.fields.split(',').join(" ")
+        queryCommand = queryCommand.select(fields)
+    }
+
+    //Pagination
+    const page = +req.query.page || 1
+    const limit = +req.query.limit || process.env.LIMIT_PRODUCT
+    const skip = (page - 1) * limit
+    queryCommand.skip(skip).limit(limit)
+    //Execute query
+    // số lượng sản phẩm thõa mãn điều kiện !== số lượng sp trả về
+    queryCommand.exec().then(async response => {
+        const counts = await Product.find(formatedQuires).countDocuments();
+        return res.status(200).json({
+            success: response ? true : false,
+            counts,
+            products: response ? response : "Cannot get product",
+        });
+    }).catch(err => {
+        throw new Error(err.message);
+    });
 })
 
 const updateProduct = asyncHandler(async (req, res) => {
