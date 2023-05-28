@@ -8,6 +8,10 @@ var categoryProductSchema = new mongoose.Schema({
         trim: true,
         index: true
     },
+    brand: {
+        type: Array,
+        required: true,
+    }
 }, {
     timestamps: true
 });

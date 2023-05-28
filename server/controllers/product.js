@@ -43,7 +43,6 @@ const getAllProduct = asyncHandler(async (req, res) => {
 
     //Fiels limiting
     if (req.query.fields) {
-        console.log(req.query.fields);
         const fields = req.query.fields.split(',').join(" ")
         queryCommand = queryCommand.select(fields)
     }
@@ -95,7 +94,6 @@ const ratings = asyncHandler(async (req, res) => {
     if (!star || !pid) throw new Error("Missing inputs")
     const ratingProduct = await Product.findById(pid)
     const alreadyRating = ratingProduct?.ratings?.find(el => el.postedBy.toString() === _id)
-    console.log({ alreadyRating });
     if (alreadyRating) {
         //update start & comment
         await Product.updateOne({
@@ -127,11 +125,24 @@ const ratings = asyncHandler(async (req, res) => {
     })
 })
 
+const uploadImgesProduct = asyncHandler(async (req, res) => {
+    const { pid } = req.params
+    if (!req.files) throw new Error("Missing inputs")
+    const response = await Product.findByIdAndUpdate(pid, { $push: { images: { $each: req.files.map(el => el.path) } } }, { new: true })
+    return res.status(200).json({
+        status: response ? true : false,
+        data: response ? response : "Cannot upload images product"
+    })
+})
+
+
 module.exports = {
     createProduct,
     getProduct,
     getAllProduct,
     updateProduct,
     deleteProduct,
-    ratings
+    ratings,
+    uploadImgesProduct,
+
 }
