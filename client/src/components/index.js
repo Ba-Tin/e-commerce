@@ -5,4 +5,6 @@ export { default as Banner } from "./Banner";
 export { default as BesetSeller } from "./BesetSeller";
 export { default as Product } from "./Product";
 export { default as NewArrivals } from "./Product";
+export { default as SelectOption } from "./SelectOption";
+
 

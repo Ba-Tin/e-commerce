@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import * as actions from './asyncActions'
 
 
@@ -9,9 +9,9 @@ export const appSlice = createSlice({
         isLoading: false
     },
     reducers: {
-        logout: (state) => {
-            state.isLoading = false
-        }
+        // logout: (state) => {
+        //     state.isLoading = false
+        // }
     },
     extraReducers: (builder) => {
         //categroies
@@ -27,6 +27,6 @@ export const appSlice = createSlice({
         //product
     },
 })
-export const { } = appSlice.actions
+// export const { } = appSlice.actions
 
 export default appSlice.reducer
