@@ -10,7 +10,7 @@ const tabs = [
 ]
 
 const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
@@ -41,18 +41,18 @@ function BesetSeller(props) {
 
     }, [activedTab, newProducts, bestSeller])
     return (
-        <div>
-            <div className='flex text-[20px] gap-8 pb-4 border-b-2 border-main'>
+        <div className='w-full'>
+            <div className='w-full flex text-[20px] gap-8 pb-4 border-b-2 border-main'>
                 {
                     tabs.map(item => (
                         <span
                             key={item.id}
                             onClick={() => setActivedTab(item.id)}
-                            className={`font-semibold capitalize border-r pr-3 text-gray-400 cursor-pointer ${activedTab === item.id ? 'text-gray-900' : ''}`}> {item.name}</span>
+                            className={`font-semibold uppercase border-r pr-3 text-gray-400 cursor-pointer ${activedTab === item.id ? 'text-gray-900' : ''}`}> {item.name}</span>
                     ))
                 }
             </div>
-            <div className='mt-4 mx-[10px]'>
+            <div className='w-full mt-4 mx-[10px]'>
                 <Slider {...settings}>
                     {products?.map(item => (
                         <Product
@@ -62,10 +62,15 @@ function BesetSeller(props) {
                             isNew={activedTab === 2 ? true : false}
                         />
                     ))}
+
                 </Slider>
-                <div className='flex gap-3 px-[10px] justify-between mt-8'>
-                    <img className='w-[400px] h-[117px]' src='https://cdn.shopify.com/s/files/1/1903/4853/files/banner2-home2_2000x_crop_center.png?v=1613166657' />
-                    <img className='w-[400px] h-[117px]' src='https://cdn.shopify.com/s/files/1/1903/4853/files/banner1-home2_2000x_crop_center.png?v=1613166657' />
+                <div className='flex gap-4 w-full mt-4 px-[10px]'>
+                    <img className='object-contain flex-1'
+                        alt='banner'
+                        src='https://cdn.shopify.com/s/files/1/1903/4853/files/banner2-home2_2000x_crop_center.png?v=1613166657' />
+                    <img className='object-contain flex-1'
+                        alt='banner'
+                        src='https://cdn.shopify.com/s/files/1/1903/4853/files/banner1-home2_2000x_crop_center.png?v=1613166657' />
                 </div>
             </div>
         </div>
