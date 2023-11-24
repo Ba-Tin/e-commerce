@@ -38,7 +38,9 @@ function Product({ productData, isNew }) {
 
                 </div>
                 <div className='flex flex-col  mt-[15px] items-start gap-1 w-full'>
-                    <span className='flex gap-1 h-4 font-extralight'>{productData?.totalsRatings === 0 ? "Chưa có đánh giá" : renderStartFromNumber(productData?.totalsRatings)}</span>
+                    <span className='flex gap-1 h-4 font-extralight'>{productData?.totalsRatings === 0 ? "Chưa có đánh giá" : renderStartFromNumber(productData?.totalsRatings, 14)?.map((el, index) => (
+                        <span key={index}>{el}</span>
+                    ))}</span>
                     <div className='overflow-hidden line-clamp-1'>{productData?.title}</div>
                     <span>{Intl.NumberFormat().format(productData?.price) || ""}đ</span>
                 </div>

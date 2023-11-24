@@ -8,7 +8,9 @@ const ProductCard = ({ image, price, totalsRatings, title }) => {
                 <img src={image} className='w-[90px] object-contain p-4' alt='products' />
                 <div className='flex flex-col  mt-[15px] items-start gap-1 w-full text-xs'>
                     <div className='line-clamp-1 text-xs capitalize'>{title?.toLowerCase() || ""}</div>
-                    <span className='flex gap-1 h-4 font-extralight'>{totalsRatings === 0 ? "Chưa có đánh giá" : renderStartFromNumber(totalsRatings, 14)}</span>
+                    <span className='flex gap-1 h-4 font-extralight'>{totalsRatings === 0 ? "Chưa có đánh giá" : renderStartFromNumber(totalsRatings, 14)?.map((el, index) => (
+                        <span key={index}>{el}</span>
+                    ))}</span>
                     <span>{Intl.NumberFormat().format(price) || ""}đ</span>
                 </div>
             </div>

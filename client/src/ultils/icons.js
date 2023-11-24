@@ -3,6 +3,7 @@ import { MdEmail } from "react-icons/md"
 import { FaShoppingBag, FaUserAlt } from "react-icons/fa"
 import { AiFillHome, AiFillStar, AiOutlineStar, AiTwotoneHeart } from "react-icons/ai"
 import { BiMenu } from 'react-icons/bi'
+import { IoIosArrowForward } from "react-icons/io";
 
 const icons = {
     RiPhoneFill,
@@ -13,7 +14,8 @@ const icons = {
     AiFillStar,
     AiOutlineStar,
     BiMenu,
-    AiTwotoneHeart
+    AiTwotoneHeart,
+    IoIosArrowForward
 };
 
 export default icons;

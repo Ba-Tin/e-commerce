@@ -21,9 +21,9 @@ function FeatureProducts(props) {
             <h3 className='text-[20px] font-semibold py-[15px] border-b-2 border-main'> FEATURED PRODUCTS</h3>
             <div className='flex flex-wrap mt-[15px] mx-[-10px]'>
                 {
-                    products?.map(el => (
+                    products?.map((el, index) => (
                         <ProductCard
-                            key={el.id}
+                            key={index}
                             image={el.thumb}
                             title={el.title}
                             totalsRatings={el.totalsRatings}
